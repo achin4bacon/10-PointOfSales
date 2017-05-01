@@ -100,7 +100,7 @@
 		function getSubTotalForCustomer(customerObj) {
 			var total = 0;
 			for (var i = 0; i < customerObj.cart.length; i++) {
-				total += getItemByID(customerObj.cart[j]).price;
+				total += getItemByID(customerObj.cart[i]).price;
 			}
 			return total
 			// todo: take in a reference to a customer object
@@ -137,12 +137,17 @@
 		console.log(emptyCart(customers[0]))
 		console.log(emptyCart(customers[1]))
 
+		function updateInventory(customerObj){
+			for (var i = 0; i < customerObj.cart.length; i++) {
+				var inv = getItemByID(customerObj.cart[j]).inventory;
+				inv -= 1;
+			}
+		}
 		function checkOutCustomer(customerObj) {
-			getSubTotalForCustomer();
-			var total = getSubTotalForCustomer();
-			totalMoneyMade = totalMoneyMade + total;
-			markItemSold();
-			emptyCart();
+			var subtotal = getSubTotalForCustomer(customerObj);
+			totalMoneyMade += subtotal;
+			updateInventory(customerObj);
+			emptyCart(customerObj);
 			//todo: take in a customer object, compute the total
 			// cost of the things in their cart, add that to the
 			// totalMoneyMade, update our inventory,
