@@ -100,11 +100,9 @@
 		function getSubTotalForCustomer(customerObj) {
 			var total = 0;
 			for (var i = 0; i < customerObj.cart.length; i++) {
-				for (var j = 0; j < customerObj.cart.length; j++) {
-					total = total + getItemByID(customerObj.cart[j]).price;
-				}
-				return total
+				total += getItemByID(customerObj.cart[j]).price;
 			}
+			return total
 			// todo: take in a reference to a customer object
 			// and return the total price of all the items
 			// in their cart
@@ -120,12 +118,14 @@
 
 
 		function markItemSold(itemObj) {
-			itemObj.quantity -= 1; 
+			itemObj.quantity -= 1;
 			// todo: take in an item reference, and update
 			// the new quantity of that item
 		}
-		console.log(markItemSold(inventory[0])
-		);
+		
+		var quantityBefore = inventory[0].quantity; 
+		markItemSold(inventory[0]);
+		console.log(quantityBefore - 1 === inventory[0]);
 
 		function emptyCart(customerObj) {
 			customerObj.cart.length = 0;
@@ -153,7 +153,7 @@
 			var newbie = new Customer(
 				'Jeff Goldblum',
 				[]
-				);
+			);
 			// todo: add a new customer to the system
 			// with an empty cart and name provided
 			// return a reference to that customer
@@ -175,7 +175,6 @@
 		};
 
 		console.log(createNewItem());
-
 	</script>
 </body>
 
