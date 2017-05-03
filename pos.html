@@ -139,13 +139,15 @@
 
 		function updateInventory(customerObj){
 			for (var i = 0; i < customerObj.cart.length; i++) {
-				var inv = getItemByID(customerObj.cart[j]).inventory;
+				var inv = getItemByID(customerObj.cart[i]).inventory;
 				inv -= 1;
 			}
 		}
+	
 		function checkOutCustomer(customerObj) {
 			var subtotal = getSubTotalForCustomer(customerObj);
 			totalMoneyMade += subtotal;
+			markItemSold(itemObj);
 			updateInventory(customerObj);
 			emptyCart(customerObj);
 			//todo: take in a customer object, compute the total
